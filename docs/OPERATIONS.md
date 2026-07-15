@@ -1,6 +1,6 @@
 # Betriebs- und Rückbauhandbuch der AD-Suite
 
-Dieses Handbuch ergänzt die Installationsanleitung. Es gilt für die gemeinsam ausgelieferten Apps `localbase`, `orgsuite`, `adcalendar`, `adplaner`, `adurlaub` und `adroom` auf Nextcloud 34 mit PHP ab 8.3.
+Dieses Handbuch ergänzt die Installationsanleitung. Es gilt für einzeln oder gemeinsam ausgelieferte AD-Fachprodukte auf Nextcloud 34 mit PHP ab 8.3. `localbase` und bei mehreren Produkten `orgsuite` sind mitgelieferte Infrastruktur.
 
 ## Verantwortlichkeiten vor der Inbetriebnahme
 
@@ -21,7 +21,7 @@ Ein konsistenter Wiederherstellungspunkt umfasst immer gemeinsam:
 - Datenbank-Dump der vollständigen Nextcloud-Datenbank,
 - Nextcloud-`config/`,
 - Nextcloud-`data/`,
-- alle sechs App-Verzeichnisse unter `custom_apps/`,
+- alle installierten AD-Fachapp-Verzeichnisse sowie `localbase` und gegebenenfalls `orgsuite` unter `custom_apps/`,
 - das eingesetzte Releasebundle einschließlich `manifest.tsv`, `SHA256SUMS` und äußerer SHA-256-Datei,
 - dokumentierte Nextcloud-, PHP-, Datenbank- und Webserverversion.
 
@@ -33,7 +33,7 @@ Die konkrete Sicherung richtet sich nach der Betriebsplattform. Während eines m
 2. Changelogs und `manifest.tsv` mit dem installierten Stand vergleichen.
 3. Vollständigen Wiederherstellungspunkt erzeugen und Rücksicherung prüfen.
 4. Wartungsfenster ankündigen und Nextcloud in den Wartungsmodus setzen.
-5. App-Verzeichnisse durch die neuen, unveränderten Archivwurzeln ersetzen; keine Versionsstände mischen.
+5. Das neue Produktbundle mit seinem Installer einspielen oder beim vollständigen Suite-Bundle alle App-Verzeichnisse durch die neuen, unveränderten Archivwurzeln ersetzen; keine Versionsstände mischen.
 6. Eigentümer und Dateirechte gemäß Nextcloud-Betrieb wiederherstellen.
 7. `occ upgrade` ausführen, falls `occ status` ein Datenbankupgrade verlangt.
 8. `occ status`, aktivierte Apps, Nextcloud-Log und die Abnahmesmokes prüfen.
@@ -48,12 +48,12 @@ Der Rückbauweg ist bewusst einfach und vollständig:
 
 1. Instanz sperren beziehungsweise Wartungsmodus aktivieren.
 2. Fehlerstand und Logs für die Nachanalyse sichern.
-3. Datenbank, `config/`, `data/` und alle sechs App-Verzeichnisse aus demselben Wiederherstellungspunkt zurückspielen.
+3. Datenbank, `config/`, `data/` und alle betroffenen App- und Infrastrukturverzeichnisse aus demselben Wiederherstellungspunkt zurückspielen.
 4. Cache-/Opcode-Cache des Webservers leeren beziehungsweise PHP-FPM kontrolliert neu laden.
 5. `occ status`, App-Liste und Nextcloud-Log prüfen.
 6. Technische und fachliche Kurzabnahme wiederholen.
 
-Ein einzelnes App-Verzeichnis wird nur dann isoliert zurückgerollt, wenn nachweislich keine Migration und kein app-übergreifender Vertragswechsel stattgefunden hat.
+Ein einzelnes App-Verzeichnis wird nur dann isoliert zurückgerollt, wenn nachweislich keine Migration und kein app-übergreifender Vertragswechsel stattgefunden hat. `localbase` darf nicht deaktiviert oder entfernt werden, solange eines der vier AD-Fachprodukte aktiv ist. OrgSuite darf nur deaktiviert werden, wenn ihre AD-/BR-Navigation und ihr Adminadapter nicht mehr benötigt werden.
 
 ## Regelmäßige Betriebsprüfung
 
