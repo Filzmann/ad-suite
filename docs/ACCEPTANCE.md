@@ -44,6 +44,8 @@
 - [ ] Zweck, Rechtsgrundlage, Aufbewahrung und Löschprozess für Personaldaten sind intern festgelegt.
 - [ ] Administrations- und Supportverantwortung sowie Störungsmeldeweg sind benannt.
 - [ ] Produktive Gruppen- und Organisationskonfiguration wurde von der fachlichen Verantwortung freigegeben.
+- [ ] Bei LDAP-/Univention-Betrieb sind Gruppenfilter, stabile interne Nextcloud-Benutzer-IDs sowie typische Allow-/Deny-Fälle gemäß LDAP-Betriebsvertrag geprüft.
+- [ ] Demo-Packs wurden nur bewusst im Adminbereich gestartet; fremde Konten und read-only LDAP-Gruppen blieben unverändert.
 - [ ] Quellcode-/Lizenzbereitstellung und eingesetzte Drittkomponenten sind dokumentiert.
 
 ## Abweichungen und Entscheidung

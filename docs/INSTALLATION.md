@@ -77,8 +77,6 @@ OrgSuite wird nicht automatisch deaktiviert, wenn später ein Produkt manuell de
 
 ## Vollständige Suite installieren
 
-Das Suite-Bundle und die danebenliegende Prüfsumme gemeinsam übertragen. Im Beispiel wird `RELEASE` vorher durch die konkrete Releasebezeichnung ersetzt:
-
 Das Suite-Bundle und die danebenliegende Prüfsumme gemeinsam übertragen. Im Beispiel wird `RELEASE` vorher durch die konkrete Releasebezeichnung wie `nc34-rc2` ersetzt:
 
 ```bash
@@ -140,9 +138,11 @@ Bei einem einzelnen AD-Fachprodukt erscheinen die organisationsweiten Einstellun
 
 Die ausschließlich appbezogenen Raumstammdaten bleiben unabhängig davon im eigenen Nextcloud-Adminabschnitt `AD Raumplaner`.
 
+Bei Univention-/LDAP-Betrieb ist zusätzlich der [LDAP- und Univention-Betriebsvertrag](LDAP-UNIVENTION.md) abzuarbeiten. Insbesondere müssen interne Nextcloud-Benutzer-IDs stabil bleiben und alle konfigurierten Gruppen-IDs in Nextcloud sichtbar sein.
+
 Fehlende Fachapps sind ein unterstützter Standalone-Zustand: Ohne AD Urlaub bleiben manuelle Sperrtermine im Kalender möglich; ohne AD Kalender bleibt Urlaubsplanung möglich, jedoch ohne automatische Dienstkonfliktprüfung; Raumbuchungen und Assistenzplanung bleiben ohne die jeweils anderen Produkte manuell nutzbar.
 
-Anschließend ausschließlich synthetische Staging-Konten den benötigten Nextcloud-Gruppen zuordnen. Demo-Seed-Befehle werden nicht automatisch ausgeführt und sollen auf einem realitätsnahen Staging-System nur nach bewusster Entscheidung verwendet werden.
+Demo-Packs werden nie automatisch ausgeführt und importieren keine WordPress-Bestandsdaten. Sie dürfen ausschließlich nach bewusster Bestätigung im Adminbereich der jeweiligen Fachapp installiert werden. Auf einem realitätsnahen LDAP-Staging müssen dafür synthetische Konten und schreibbare Demogruppen verwendet werden; read-only LDAP-Gruppen werden nicht verändert.
 
 ## Abnahmekriterien
 
@@ -156,4 +156,4 @@ Anschließend ausschließlich synthetische Staging-Konten den benötigten Nextcl
 - Vertikales App-Scrolling und horizontaler Tabellenoverflow funktionieren.
 - Nextcloud-Log enthält nach den Abnahmeläufen keine neuen Appfehler.
 
-Erst nach erfolgreicher Abnahme werden reale Personaldaten oder produktionsnahe Importe in Betracht gezogen.
+Erst nach erfolgreicher Abnahme werden reale Personaldaten verwendet. Ein Import von WordPress-Bestandsdaten ist nicht Bestandteil des Produkts.

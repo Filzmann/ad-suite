@@ -22,6 +22,7 @@ Navigation erteilt keine Rechte; schreibende und lesende Zugriffskontrollen werd
 ## Installation und Abnahme
 
 - [Staging-Installation](docs/INSTALLATION.md)
+- [LDAP- und Univention-Betriebsvertrag](docs/LDAP-UNIVENTION.md)
 - [Betrieb und Rückbau](docs/OPERATIONS.md)
 - [Abnahmeprotokoll](docs/ACCEPTANCE.md)
 - [Delivery-Gate und Testabdeckung](docs/DELIVERY-GATE.md)
