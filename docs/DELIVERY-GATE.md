@@ -41,6 +41,14 @@ ddev xdebug off
 
 Der Bericht liegt unter `build/coverage/php-summary.tsv`. Das Skript erzwingt standardmäßig mindestens 40 Prozent Gesamt-Line-Coverage; ein bewusst höherer Grenzwert kann über `MIN_TOTAL_COVERAGE` gesetzt werden.
 
+Zusätzlich vergleicht das Gate jede App und den Gesamtwert mit der versionierten Baseline unter `scripts/ad-suite-php-coverage-baseline.tsv`. Ein Rückgang einer einzelnen App wird damit auch dann abgelehnt, wenn eine andere App den Gesamtwert ausgleicht. Die Baseline wird bei nachweislich verbesserter Testabdeckung angehoben; ein Absenken ist keine reguläre Lösung für einen fehlgeschlagenen Testlauf und muss als bewusste Ausnahme begründet werden.
+
+## TDD-Vertrag
+
+Neue Fachlogik, Fehlerkorrekturen, Berechtigungen, Validierungen und Konfliktregeln werden grundsätzlich test-first nach Rot – Grün – Refactor entwickelt. Für neuen oder wesentlich geänderten ausführbaren Code werden mindestens 85 Prozent Line-Coverage angestrebt. Sicherheitskritische Regeln benötigen unabhängig von der Prozentzahl relevante Allow-, Deny- und Grenzfälle.
+
+Technische Spikes und reine UI-Erkundungen dürfen vorübergehend ohne vorgelagerten Test entstehen. Vor der Übernahme in Produktivcode werden sie verworfen oder durch passende Unit-, Contract-, Integrations-, Layout- oder Browsertests abgesichert. PHP- und JavaScript-Coverage werden nicht zu einer gemeinsamen Kennzahl vermischt.
+
 Baseline vom 14. Juli 2026 nach den Workflow-Härtungen:
 
 | App | ausführbare Zeilen | abgedeckt | Line-Coverage |
