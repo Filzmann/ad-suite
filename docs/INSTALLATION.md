@@ -84,11 +84,17 @@ sha256sum --check ad-suite-RELEASE.tar.gz.sha256
 tar -xzf ad-suite-RELEASE.tar.gz
 cd ad-suite-RELEASE
 sha256sum --check SHA256SUMS
+sudo -u www-data ./install.sh \
+  --nextcloud-root /var/www/nextcloud \
+  --bundle-dir "$PWD" \
+  --product suite
 ```
 
 `manifest.tsv` dokumentiert pro App Version, Git-Commit, SHA-256 und Signaturstatus.
 
-### Apps entpacken
+Der Suite-Installer nutzt dieselben Prüfungen, Backups und Rückbaugrenzen wie der Einzelproduktinstaller. Er installiert alle vier Fachprodukte, LocalBase und OrgSuite in der erforderlichen Reihenfolge und aktiviert anschließend die vollständige Suite. Die folgenden manuellen Schritte dienen nur als dokumentierter Ausweichweg, falls der Installer vor Beginn der Aktivierung nicht ausgeführt werden kann.
+
+### Manueller Ausweichweg: Apps entpacken
 
 ```bash
 sudo tar -xzf localbase-*.tar.gz -C /var/www/nextcloud/custom_apps/
@@ -102,7 +108,7 @@ sudo chown -R www-data:www-data /var/www/nextcloud/custom_apps/{localbase,orgsui
 
 Jedes Archiv enthält genau den zur App-ID passenden Wurzelordner. Keine Ordner umbenennen.
 
-### Apps aktivieren
+### Manueller Ausweichweg: Apps aktivieren
 
 Auf einem leeren Staging-System können die Apps direkt in Abhängigkeitsreihenfolge aktiviert werden. Auf einer bereits benutzten Instanz empfiehlt sich für den Installationszeitraum der Wartungsmodus.
 

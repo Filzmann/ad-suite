@@ -20,7 +20,7 @@ Geprüft werden:
 - reproduzierbarer Paketbau, Archivwurzeln und SHA-256-Prüfsummen,
 - vier Produktbundles mit Installer sowie das vollständige Suite-Bundle.
 
-Der Installer-Contract wird mit einer künstlichen Nextcloud-/`occ`-Umgebung geprüft: Das erste Fachprodukt aktiviert LocalBase und bleibt ohne OrgSuite, das zweite aktiviert OrgSuite, und manipulierte Prüfsummen werden abgewiesen.
+Der Installer-Contract wird mit einer künstlichen Nextcloud-/`occ`-Umgebung geprüft: Das erste Fachprodukt aktiviert LocalBase und bleibt ohne OrgSuite, jede der sechs möglichen Produktpaarungen aktiviert OrgSuite, der vollständige Suite-Installer aktiviert alle Apps, und manipulierte Prüfsummen werden abgewiesen.
 
 ## Stufe 2: Nextcloud-Container
 
