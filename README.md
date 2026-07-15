@@ -15,7 +15,9 @@ Die AD Suite bündelt sechs eigenständige Nextcloud-Apps für Dienst-, Assisten
 | AD Urlaub | Geplante und genehmigte Urlaube mit Rechte- und Konfliktprüfung | [nextcloud-adurlaub](https://github.com/Filzmann/nextcloud-adurlaub) |
 | AD Raumplaner | Zeitlich ausgerichtete, kollisionsfreie Raumbuchungen | [nextcloud-adroom](https://github.com/Filzmann/nextcloud-adroom) |
 
-Die Apps bleiben fachlich und technisch getrennt. Navigation erteilt keine Rechte; schreibende und lesende Zugriffskontrollen werden serverseitig in den jeweiligen Apps durchgesetzt.
+Die vier Fachapps sind einzeln verkauf-, installier- und nutzbar. Jedes Produktbundle bringt die kompatible LocalBase-Infrastruktur mit; ab zwei Fachprodukten wird OrgSuite für gemeinsame Navigation und Administration aktiviert. Fehlende Integrationspartner werden nicht als Fehler behandelt: Die jeweilige Direktfunktion entfällt oder bleibt als manueller Fachweg verfügbar.
+
+Navigation erteilt keine Rechte; schreibende und lesende Zugriffskontrollen werden serverseitig in den jeweiligen Apps durchgesetzt. LocalBase und OrgSuite sind mitgelieferte Infrastruktur, keine separat vermarkteten Fachprodukte.
 
 ## Installation und Abnahme
 
@@ -24,7 +26,7 @@ Die Apps bleiben fachlich und technisch getrennt. Navigation erteilt keine Recht
 - [Abnahmeprotokoll](docs/ACCEPTANCE.md)
 - [Delivery-Gate und Testabdeckung](docs/DELIVERY-GATE.md)
 
-Die fertigen App-Archive, das Suite-Bundle, das Versionsmanifest und SHA-256-Prüfsummen werden gemeinsam im jeweiligen GitHub-Release bereitgestellt.
+Die vier Produktbundles `ad-product-<app-id>-<release>.tar.gz`, das vollständige Suite-Bundle, Versionsmanifeste und SHA-256-Prüfsummen werden gemeinsam im jeweiligen GitHub-Release bereitgestellt. Produktinstallationen verwenden das enthaltene `install.sh` und nicht einzelne rohe Fachapp-Archive.
 
 ## Lizenz und Leistungen
 
