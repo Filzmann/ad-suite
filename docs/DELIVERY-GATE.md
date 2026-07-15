@@ -49,7 +49,7 @@ Neue Fachlogik, Fehlerkorrekturen, Berechtigungen, Validierungen und Konfliktreg
 
 Technische Spikes und reine UI-Erkundungen dürfen vorübergehend ohne vorgelagerten Test entstehen. Vor der Übernahme in Produktivcode werden sie verworfen oder durch passende Unit-, Contract-, Integrations-, Layout- oder Browsertests abgesichert. PHP- und JavaScript-Coverage werden nicht zu einer gemeinsamen Kennzahl vermischt.
 
-Baseline vom 14. Juli 2026 nach den Workflow-Härtungen:
+Baseline vom 15. Juli 2026 nach den Raum-API-Vertragstests:
 
 | App | ausführbare Zeilen | abgedeckt | Line-Coverage |
 | --- | ---: | ---: | ---: |
@@ -58,8 +58,8 @@ Baseline vom 14. Juli 2026 nach den Workflow-Härtungen:
 | AD Kalender | 813 | 271 | 33,33 % |
 | AD Planer | 764 | 338 | 44,24 % |
 | AD Urlaub | 523 | 146 | 27,92 % |
-| AD Raum | 412 | 104 | 25,24 % |
-| Gesamt | 2.904 | 1.217 | 41,91 % |
+| AD Raum | 416 | 175 | 42,07 % |
+| Gesamt | 2.908 | 1.288 | 44,29 % |
 
 JavaScript ist über Syntax-, Komponenten-, Contract- und Fake-DOM-Smokes abgesichert. Dafür wird noch keine Prozentzahl ausgewiesen: Ein V8-Wert wäre bei den teilweise statischen DOM-/Quellverträgen keine belastbare Aussage über tatsächlich ausgeführte Browserlogik. Browsernahe JS-Line-Coverage bleibt ein eigener Ausbaupunkt und wird nicht mit der PHP-Zahl vermischt.
 
