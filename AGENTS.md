@@ -30,4 +30,4 @@ Releasearchive werden als GitHub-Release-Assets veröffentlicht und nicht dauerh
 
 - Vor Commits `git status --short`, `git diff --stat` und `git diff --name-only` prüfen.
 - Dateien gezielt stagen; niemals `git add .`.
-- Push und GitHub-Releases nur nach ausdrücklicher Freigabe durch Simon. Die Freigabe für die aktuelle Erstveröffentlichung liegt vor.
+- Push und GitHub-Releases nur nach ausdrücklicher Freigabe durch Simon. Eine Veröffentlichungsfreigabe gilt ausschließlich für den konkret benannten Releasekontext und die konkret benannte Version; diese Datei dokumentiert keine zeitlich unbegrenzte oder aktuell offene Erstveröffentlichungsfreigabe.

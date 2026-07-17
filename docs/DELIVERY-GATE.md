@@ -2,11 +2,13 @@
 
 Das Delivery-Gate bündelt die wiederholbaren Prüfungen vor jedem Releasekandidaten. Ein Release darf nur aus sauberen App-Repositories gebaut werden.
 
+`scripts/check-ad-suite-delivery` führt den strikten Parent-Fast-Pfad einschließlich der Parent-Contract-Tests genau einmal aus und startet danach nur die Delivery-spezifischen Prüfungen. Ein separater `scripts/check-fast` unmittelbar davor ist im selben Releasepfad nicht erforderlich.
+
 ## Stufe 1: lokale Pflichtprüfung
 
 ```bash
 cd ~/projects/br-nextcloud-apps
-scripts/verify-ad-suite-delivery.sh
+scripts/check-ad-suite-delivery
 ```
 
 Geprüft werden:
@@ -25,10 +27,12 @@ Der Installer-Contract wird mit einer künstlichen Nextcloud-/`occ`-Umgebung gep
 ## Stufe 2: Nextcloud-Container
 
 ```bash
-RUN_DDEV_CHECKS=1 scripts/verify-ad-suite-delivery.sh
+RUN_DDEV_CHECKS=1 scripts/check-ad-suite-delivery
 ```
 
 Diese Stufe ergänzt den Nextcloud-Status und prüft, ob alle sechs Apps aktiviert sind.
+
+DDEV ist keine Vorlage für Produktion. DDEV-Pfade, Benutzer, Containerpfade, PHP-Binaries, Datenbankzugänge und andere lokale Annahmen dürfen nicht auf die Zielumgebung übertragen werden. Für Staging oder Produktion werden reale Pfade, Benutzer, `apps_paths`, PHP-Binary und CLI-Memory-Limit separat ermittelt und der Umgebungswechsel ausdrücklich benannt.
 
 ## PHP-Abdeckung
 
@@ -77,7 +81,7 @@ AD_SUITE_USER=admin \
 AD_SUITE_PASSWORD='…' \
 RUN_DDEV_CHECKS=1 \
 RUN_HTTP_SMOKES=1 \
-scripts/verify-ad-suite-delivery.sh
+scripts/check-ad-suite-delivery
 ```
 
 Die HTTP-Smokes prüfen DOM-Verträge, API-Payloads, CSRF-Ablehnung, Adminschutz sowie selbstbereinigende Urlaub- und Raumbuchungsvorgänge.
@@ -87,7 +91,7 @@ Die HTTP-Smokes prüfen DOM-Verträge, API-Payloads, CSRF-Ablehnung, Adminschutz
 ```bash
 RUN_DDEV_CHECKS=1 \
 RUN_ACCESS_MATRICES=1 \
-scripts/verify-ad-suite-delivery.sh
+scripts/check-ad-suite-delivery
 ```
 
 Die Rechtematrizen erzeugen temporäre Konten und Gruppenmitgliedschaften für typische Allow-/Deny-Fälle und räumen sie auch bei Fehlern wieder auf. Sie verändern keine vorhandenen Fachdatensätze.
@@ -103,3 +107,5 @@ Ein erfolgreiches Gate ersetzt nicht:
 - Datenschutz- und Mitbestimmungsfreigabe,
 - eine externe Sicherheitsprüfung,
 - die fachliche Abnahme durch die Auftraggeberin.
+
+Auch ein grünes Gate ist keine dauerhafte Veröffentlichungsfreigabe. Die Freigabe muss den konkreten Releasekontext und die konkrete Version nennen.
