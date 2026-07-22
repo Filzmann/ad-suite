@@ -19,6 +19,7 @@
 - [ ] Äußere Bundle-Prüfsumme und alle Einträge in `SHA256SUMS` stimmen.
 - [ ] Sechs App-Archive entsprechen `manifest.tsv` und wurden in dokumentierter Reihenfolge aktiviert.
 - [ ] `occ status` meldet keinen ausstehenden Datenbank-Upgradebedarf.
+- [ ] Bei aktivem AD Kalender und AD Urlaub liefern die dokumentierten Klassenfilter jeweils genau einen registrierten Hintergrundjob.
 - [ ] Delivery-Gate einschließlich DDEV-/Zielserverstatus ist erfolgreich.
 - [ ] Authentifizierte HTTP-Smokes sind erfolgreich.
 - [ ] Rechtematrizen sind nach Änderungen an Gruppen, Hierarchie oder Rechten erfolgreich.

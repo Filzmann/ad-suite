@@ -66,6 +66,20 @@ sudo -u www-data php occ background:cron
 sudo -u www-data php occ config:system:get loglevel
 ```
 
+Bei installiertem AD Kalender beziehungsweise AD Urlaub werden nach einem Update zusätzlich die beiden periodischen Jobs gezielt geprüft. Die Klassenfilter vermeiden, dass sie bei großen Instanzen außerhalb des Standardlimits von `background-job:list` liegen:
+
+```bash
+sudo -u www-data php occ background-job:list \
+  --class='OCA\AdCalendar\BackgroundJob\ReconcileShiftCalendarsJob' \
+  --output=json_pretty
+
+sudo -u www-data php occ background-job:list \
+  --class='OCA\AdUrlaub\BackgroundJob\RefreshHolidayCalendarJob' \
+  --output=json_pretty
+```
+
+Beide Befehle müssen bei aktiver App genau einen Eintrag liefern. Der Zeitstempel `1970-01-01` bedeutet unmittelbar nach der Registrierung lediglich, dass der Job noch nicht erstmals durch Cron gelaufen ist.
+
 Zusätzlich kontrollieren:
 
 - neue Fehler der Logger `orgsuite`, `adcalendar`, `adplaner`, `adurlaub` und `adroom`,

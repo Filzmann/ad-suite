@@ -21,6 +21,8 @@ Navigation erteilt keine Rechte; schreibende und lesende Zugriffskontrollen werd
 
 ## Installation und Abnahme
 
+- [Suiteweite Roadmap](ROADMAP.md)
+- [Maschinenlesbares Hardcoding-Inventar](docs/HARDCODING-INVENTORY.json)
 - [Staging-Installation](docs/INSTALLATION.md)
 - [LDAP- und Univention-Betriebsvertrag](docs/LDAP-UNIVENTION.md)
 - [Betrieb und Rückbau](docs/OPERATIONS.md)
