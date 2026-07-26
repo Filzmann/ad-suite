@@ -1,6 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedAt": "2026-07-22",
+  "snapshotStatus": "historical working-state evidence; not a normative rule or approved implementation backlog",
+  "revalidationRequired": true,
   "scope": {
     "repositories": [
       "adcalendar",
@@ -112,40 +114,44 @@
     },
     {
       "id": "calendar-region-timezone",
-      "repositories": ["adcalendar", "adroom", "adurlaub"],
+      "repositories": ["localbase", "adcalendar", "adroom", "adurlaub"],
       "locations": [
+        "localbase/lib/Calendar/CalendarContext.php",
+        "localbase/lib/Calendar/CalendarContextSettingsService.php",
         "adroom/lib/Service/BookingService.php",
         "adroom/lib/Service/HolidayService.php",
         "adcalendar/lib/Service/CalendarDemoPackService.php",
-        "adurlaub/lib/Calendar/OpenHolidaysClient.php"
+        "adurlaub/lib/Service/HolidayCalendarService.php"
       ],
       "category": "gemeinsamer Vertrag",
-      "state": "duplicated-berlin-default",
+      "state": "implementation-in-uncommitted-worktree-pending-contract-and-staging-acceptance",
       "targetOwner": "localbase",
-      "action": "Validierten Kalenderkontext mit Zeitzone, Land und Region bereitstellen; Europe/Berlin und DE-BE bleiben Bestandsdefaults.",
+      "action": "Den nach LocalBase verschobenen Kalenderkontext mit Provider-, Consumer-, Migrations- und Staging-Tests abnehmen; verbleibende direkte Berlin-Defaults einzeln klassifizieren.",
       "priority": 2
     },
     {
       "id": "holiday-calendar-provider-cache",
-      "repositories": ["adurlaub", "adcalendar", "adroom"],
+      "repositories": ["localbase", "adurlaub", "adcalendar", "adroom"],
       "locations": [
-        "adurlaub/lib/Calendar/OpenHolidaysClient.php",
+        "localbase/lib/Calendar/OpenHolidaysClient.php",
+        "localbase/lib/Calendar/HolidayCalendarService.php",
+        "localbase/lib/Calendar/HolidayCalendarCacheStore.php",
         "adurlaub/lib/Service/HolidayCalendarService.php",
-        "adcalendar/js/modules/berlin-public-holidays.js",
+        "adcalendar/js/modules/holiday-calendar.js",
         "adroom/lib/Service/HolidayService.php"
       ],
       "category": "gemeinsamer Vertrag",
-      "state": "one-provider-two-manual-implementations",
+      "state": "implementation-in-uncommitted-worktree-pending-contract-and-staging-acceptance",
       "targetOwner": "localbase",
-      "action": "Den ausfallsicheren Provider-/Cache-Ansatz als read-only Vertrag extrahieren und die beiden manuellen Feiertagsberechnungen erst nach Consumer-Contract-Tests entfernen.",
+      "action": "Den gemeinsamen read-only Provider-/Cache-Vertrag und alle Consumer vollständig prüfen; der Befund ist bis zur Abnahme kein erledigter Releasevertrag.",
       "priority": 2
     },
     {
       "id": "holiday-provider-endpoint",
-      "repositories": ["adurlaub"],
-      "locations": ["adurlaub/lib/Calendar/OpenHolidaysClient.php"],
+      "repositories": ["localbase"],
+      "locations": ["localbase/lib/Calendar/OpenHolidaysClient.php"],
       "category": "Codevertrag",
-      "state": "intentional",
+      "state": "intentional-in-uncommitted-worktree-pending-acceptance",
       "targetOwner": "holiday provider adapter",
       "action": "HTTPS-Endpunkt, erlaubte Antwortgröße, Zeitlimits und Schema-Validierung im Adapter belassen; nur Providerauswahl und Region sind administrierbare Werte.",
       "priority": 2

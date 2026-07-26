@@ -60,21 +60,24 @@ Ein einzelnes App-Verzeichnis wird nur dann isoliert zurückgerollt, wenn nachwe
 Mindestens nach Deployments und ansonsten nach betrieblichem Standard prüfen:
 
 ```bash
-sudo -u www-data php occ status
-sudo -u www-data php occ app:list --enabled
-sudo -u www-data php occ background:cron
-sudo -u www-data php occ config:system:get loglevel
+<RUNTIME-KONTEXT> <CLI-PHP> occ status
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:list --enabled
+<RUNTIME-KONTEXT> <CLI-PHP> occ background:cron
+<RUNTIME-KONTEXT> <CLI-PHP> occ config:system:get loglevel
 ```
 
-Bei installiertem AD Kalender beziehungsweise AD Urlaub werden nach einem Update zusätzlich die beiden periodischen Jobs gezielt geprüft. Die Klassenfilter vermeiden, dass sie bei großen Instanzen außerhalb des Standardlimits von `background-job:list` liegen:
+Bei installiertem AD Kalender beziehungsweise LocalBase werden nach einem
+Update zusätzlich die beiden periodischen Jobs gezielt geprüft. Die
+Klassenfilter vermeiden, dass sie bei großen Instanzen außerhalb des
+Standardlimits von `background-job:list` liegen:
 
 ```bash
-sudo -u www-data php occ background-job:list \
+<RUNTIME-KONTEXT> <CLI-PHP> occ background-job:list \
   --class='OCA\AdCalendar\BackgroundJob\ReconcileShiftCalendarsJob' \
   --output=json_pretty
 
-sudo -u www-data php occ background-job:list \
-  --class='OCA\AdUrlaub\BackgroundJob\RefreshHolidayCalendarJob' \
+<RUNTIME-KONTEXT> <CLI-PHP> occ background-job:list \
+  --class='OCA\LocalBase\BackgroundJob\RefreshHolidayCalendarJob' \
   --output=json_pretty
 ```
 

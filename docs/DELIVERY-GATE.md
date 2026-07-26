@@ -7,7 +7,7 @@ Das Delivery-Gate bündelt die wiederholbaren Prüfungen vor jedem Releasekandid
 ## Stufe 1: lokale Pflichtprüfung
 
 ```bash
-cd ~/projects/br-nextcloud-apps
+cd <WORKSPACE_ROOT>
 scripts/check-ad-suite-delivery
 ```
 
@@ -39,7 +39,7 @@ DDEV ist keine Vorlage für Produktion. DDEV-Pfade, Benutzer, Containerpfade, PH
 Die isolierten PHP-Tests können zusätzlich mit Xdebug/PHPCOV gemessen werden. Die Entwicklungsabhängigkeit wird aus dem versionierten Lockfile installiert und nicht in die App-Archive gepackt:
 
 ```bash
-cd ~/projects/br-nextcloud-apps/nextcloud-dev
+cd <WORKSPACE_ROOT>/nextcloud-dev
 ddev xdebug on
 cd ..
 scripts/measure-ad-suite-php-coverage.sh
