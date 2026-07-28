@@ -1,8 +1,9 @@
 # Aktiver Ausführungsplan der AD-Suite
 
-Stand: 26. Juli 2026
-Status: Planung; jeder Lieferblock benötigt einen eigenen Auftrag und eine
-eigene Abnahme.
+Stand: 27. Juli 2026
+Status: Planung; die am 27. Juli 2026 freigegebenen Learning Candidates wurden
+in repository-eigene Roadmap-Aufgaben verschoben. Jeder Lieferblock benötigt
+weiterhin einen eigenen Auftrag und eine eigene Abnahme.
 
 Die dauerhaften Produktziele stehen in `../ROADMAP.md`. Dieser Plan beschreibt
 lediglich die derzeit vorgesehene Reihenfolge.
@@ -32,41 +33,32 @@ lediglich die derzeit vorgesehene Reihenfolge.
 
 ## 4. Suite- und Navigationskatalog konsolidieren
 
-- Produkt-/Menükatalog als eigenen Candidate prüfen und freigeben.
-- Reihenfolge und Berechtigungen unverändert charakterisieren.
-- Externe Links erst danach mit HTTPS-Validierung und serverseitiger
-  Gruppensichtbarkeit anbinden.
+- Umsetzung und Abnahme über `PARENT-AD-CATALOG`, `LB-AD-CATALOG`,
+  `ORGS-AD-CATALOG`, `RECR-AD-CATALOG` und `ADS-AD-CATALOG-DOCS`.
+- Externe Links bleiben davon getrenntes OrgSuite-Roadmapziel.
 
 ## 5. Gruppenverträge bereinigen
 
-- Gemeinsamen BR-Gruppenvertrag separat entscheiden und additiv migrieren.
-- AD-Gruppenerkennung der Berechtigungsmatrix anschließend gegen einen
-  read-only Organisationssnapshot prüfen.
-- Rohgruppen und historische Snapshots revisionsfähig erhalten.
+- BR-Gruppen über `LB-BR-GROUPS`, `BRT-BR-GROUPS` und `BRS-BR-GROUPS`.
+- Organisationssnapshot und Matrix über `LB-AD-ORG-SNAPSHOT`,
+  `BPM-AD-ORG-SNAPSHOT` und `BPM-FOLDER-RIGHTS`.
 
 ## 6. Datums- und Zeitbeschriftungen lokalisieren
 
-- Mit einem charakterisierten Pilot in Assistenzplanung und AD Urlaub
-  beginnen.
-- Danach AD Raumplaner, AD Kalender und BRStunden umstellen.
-- ISO-Daten, Monatsnummern und stabile Enum-Werte unverändert lassen.
+- Pilot und jede Folgemigration über die app-eigene `*-L10N`-Aufgabe.
+- AdPlaner und AD Urlaub bleiben die vorgesehenen Pilotkandidaten.
 
 ## 7. Nextcloud-l10n vertikal einführen
 
-- Werkzeug, Fallback und zunächst warnenden Check in einer Pilot-App
-  etablieren.
-- Danach OrgSuite/LocalBase und jede Fachapp einzeln migrieren.
-- Einen verpflichtenden Fehler für neue Rohtexte erst nach abgeschlossener
-  App-Migration aktivieren.
+- Werkzeug, Fallback, Tests und Rohtext-Check stehen jeweils in der lokalen
+  `*-L10N`-Aufgabe; es gibt keine globale App-übergreifende Textquelle.
 
 ## 8. Weitere administrierbare Vorgaben prüfen
 
-- Kalenderanbieterdefaults, sichtbare Kalendernamen, BR-Stammdaten,
-  Dokumentvorlagen, Schicht-/Meetingdefaults und Aufbewahrung appweise
-  klassifizieren.
-- Eigentümer eindeutig zwischen Suite-Admin, App-Admin und persönlicher
-  Einstellung trennen.
-- Bestehende Werte additiv migrieren.
+- Kalenderdefaults über `ADC-ADMIN-DEFAULTS`.
+- BR-Stammdaten und Vorlagen über `BRT-DOCUMENT-CONFIG` und
+  `BRS-DOCUMENT-CONFIG`.
+- Andere Defaults bleiben erst nach eigener Evidenzprüfung neue Aufgaben.
 
 ## 9. Externe Kalenderanbieter
 
@@ -85,10 +77,8 @@ lediglich die derzeit vorgesehene Reihenfolge.
 
 ## Offene Entscheidungen
 
-- Geltungsbereich persönlicher Zeitzonen gegenüber dem
-  Organisationskalender.
-- Erste vollständig unterstützte Sprache neben Deutsch.
-- Abgrenzung organisationsspezifischer und fachlich unveränderbarer
-  BR-Dokumenttexte.
-- Bestehende Defaults: automatische additive Migration oder ausdrückliche
-  Bestätigung im Adminbereich.
+Offene Candidate-Entscheidungen stehen jetzt direkt an den betroffenen
+Aufgaben: BR-Gruppenmitgliedschaft, Umbenennung vorhandener Kalender sowie
+persönliche gegenüber organisationsweiter Dokumentlocale. Die erste
+vollständig unterstützte Sprache neben Deutsch wird im l10n-Pilotauftrag
+festgelegt.
