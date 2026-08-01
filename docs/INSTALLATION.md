@@ -10,13 +10,20 @@ Verkaufbare Fachprodukte sind:
 - `adplaner` – Assistenzplanung,
 - `adurlaub` – AD Urlaub,
 - `adroom` – AD Raumplaner.
+- `adrecruitment` – AD Recruitment.
 
 Jedes Produktbundle enthält zusätzlich eine kompatible Version von `localbase` und `orgsuite`. Diese beiden Apps sind mitgelieferte technische Infrastruktur und keine separaten Fachprodukte. Die Fachapps funktionieren einzeln. Ab zwei aktivierten AD-Fachprodukten bündelt OrgSuite Navigation und Organisationsadministration.
 
 Es gibt zwei Paketarten:
 
 - `ad-product-<app-id>-RELEASE.tar.gz` für die Installation oder Aktualisierung genau eines Fachprodukts,
-- `ad-suite-RELEASE.tar.gz` für eine vollständige Installation aller vier Fachprodukte.
+- `ad-suite-RELEASE.tar.gz` für eine vollständige Installation aller fünf Fachprodukte.
+
+AD Recruitment wird im vollständigen AD-Suite-Archiv und als eigenes
+Produktpaket ausgeliefert. Es wird nicht stillschweigend Bestandteil eines
+anderen Fachproduktpakets. Menü- und Bundle-Zugehörigkeit werden im
+mitgelieferten `ad-product-catalog.json` getrennt ausgewiesen; Navigation
+erteilt keine Rechte.
 
 Für Einzelprodukte ist immer der mitgelieferte Installer zu verwenden. Nextcloud 34 installiert App-Abhängigkeiten aus `info.xml` nicht automatisch; das Produktbundle übernimmt deshalb Reihenfolge, Prüfsummen und Aktivierung der Infrastruktur.
 
@@ -53,7 +60,7 @@ Nach ausgeführten App-Migrationen ist ein Downgrade durch bloßes Zurückkopier
 
 ## Einzelprodukt installieren
 
-Produktbundle und äußere Prüfsumme gemeinsam übertragen. Im Beispiel wird `PRODUCT` durch `adcalendar`, `adplaner`, `adurlaub` oder `adroom` und `RELEASE` durch die konkrete Releasebezeichnung ersetzt:
+Produktbundle und äußere Prüfsumme gemeinsam übertragen. Im Beispiel wird `PRODUCT` durch `adcalendar`, `adplaner`, `adurlaub`, `adroom` oder `adrecruitment` und `RELEASE` durch die konkrete Releasebezeichnung ersetzt:
 
 ```bash
 sha256sum --check ad-product-PRODUCT-RELEASE.tar.gz.sha256
@@ -105,7 +112,7 @@ sha256sum --check SHA256SUMS
 
 `manifest.tsv` dokumentiert pro App Version, Git-Commit, SHA-256 und Signaturstatus.
 
-Der Suite-Installer nutzt dieselben Prüfungen, Backups und Rückbaugrenzen wie der Einzelproduktinstaller. Er installiert alle vier Fachprodukte, LocalBase und OrgSuite in der erforderlichen Reihenfolge und aktiviert anschließend die vollständige Suite. Die folgenden manuellen Schritte dienen nur als dokumentierter Ausweichweg, falls der Installer vor Beginn der Aktivierung nicht ausgeführt werden kann.
+Der Suite-Installer nutzt dieselben Prüfungen, Backups und Rückbaugrenzen wie der Einzelproduktinstaller. Er installiert alle fünf Fachprodukte, LocalBase und OrgSuite in der erforderlichen Reihenfolge und aktiviert anschließend die vollständige Suite. Die folgenden manuellen Schritte dienen nur als dokumentierter Ausweichweg, falls der Installer vor Beginn der Aktivierung nicht ausgeführt werden kann.
 
 ### Manueller Ausweichweg: Apps entpacken
 
@@ -116,6 +123,7 @@ Der Suite-Installer nutzt dieselben Prüfungen, Backups und Rückbaugrenzen wie 
 <DEPLOY-KONTEXT> tar -xzf adplaner-*.tar.gz -C <CUSTOM-APPS>/
 <DEPLOY-KONTEXT> tar -xzf adurlaub-*.tar.gz -C <CUSTOM-APPS>/
 <DEPLOY-KONTEXT> tar -xzf adroom-*.tar.gz -C <CUSTOM-APPS>/
+<DEPLOY-KONTEXT> tar -xzf adrecruitment-*.tar.gz -C <CUSTOM-APPS>/
 ```
 
 Jedes Archiv enthält genau den zur App-ID passenden Wurzelordner. Keine Ordner umbenennen.
@@ -135,6 +143,7 @@ cd <NEXTCLOUD-ROOT>
 <RUNTIME-KONTEXT> <CLI-PHP> occ app:enable adplaner
 <RUNTIME-KONTEXT> <CLI-PHP> occ app:enable adurlaub
 <RUNTIME-KONTEXT> <CLI-PHP> occ app:enable adroom
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:enable adrecruitment
 <RUNTIME-KONTEXT> <CLI-PHP> occ status
 <RUNTIME-KONTEXT> <CLI-PHP> occ app:list --enabled
 ```
@@ -164,7 +173,7 @@ Die ausschließlich appbezogenen Raumstammdaten bleiben unabhängig davon im eig
 
 Bei Univention-/LDAP-Betrieb ist zusätzlich der [LDAP- und Univention-Betriebsvertrag](LDAP-UNIVENTION.md) abzuarbeiten. Insbesondere müssen interne Nextcloud-Benutzer-IDs stabil bleiben und alle konfigurierten Gruppen-IDs in Nextcloud sichtbar sein.
 
-Fehlende Fachapps sind ein unterstützter Standalone-Zustand: Ohne AD Urlaub bleiben manuelle Sperrtermine im Kalender möglich; ohne AD Kalender bleibt Urlaubsplanung möglich, jedoch ohne automatische Dienstkonfliktprüfung; Raumbuchungen und Assistenzplanung bleiben ohne die jeweils anderen Produkte manuell nutzbar.
+Fehlende Fachapps sind ein unterstützter Standalone-Zustand: Ohne AD Urlaub bleiben manuelle Sperrtermine im Kalender möglich; ohne AD Kalender bleibt Urlaubsplanung möglich, jedoch ohne automatische Dienstkonfliktprüfung; Raumbuchungen, Assistenzplanung und AD Recruitment bleiben ohne die jeweils anderen Produkte eigenständig nutzbar.
 
 Demo-Packs werden nie automatisch ausgeführt und importieren keine WordPress-Bestandsdaten. Sie dürfen ausschließlich nach bewusster Bestätigung im Adminbereich der jeweiligen Fachapp installiert werden. Auf einem realitätsnahen LDAP-Staging müssen dafür synthetische Konten und schreibbare Demogruppen verwendet werden; read-only LDAP-Gruppen werden nicht verändert.
 

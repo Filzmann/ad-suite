@@ -2,7 +2,7 @@
 
 ## Zweck
 
-Dieses eigenständige Repository ist die öffentliche Produkt- und Releaseübersicht der AD-Suite für Nextcloud. Deploybarer App-Code verbleibt in den sechs getrennten App-Repositories.
+Dieses eigenständige Repository ist die öffentliche Produkt- und Releaseübersicht der AD-Suite für Nextcloud. Deploybarer App-Code verbleibt in den sieben getrennten App-Repositories.
 
 Enthalten sind ausschließlich:
 

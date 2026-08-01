@@ -9,7 +9,7 @@ Vor dem ersten Import realer Personaldaten müssen benannt sein:
 - technische Administration für Nextcloud, Datenbank, Backup und Wiederherstellung,
 - fachliche Verantwortung für Organisationshierarchie, Gruppen und Freigaben,
 - Ansprechperson für Datenschutz und betriebliche Mitbestimmung,
-- Freigabeverantwortliche für Kalender, Assistenzplanung, Urlaub und Räume,
+- Freigabeverantwortliche für Kalender, Assistenzplanung, Urlaub, Räume und Recruitment,
 - Meldeweg und Reaktionszeit bei Störungen.
 
 Die Suite ist eine Planungsanwendung, kein revisionssicheres Personalabrechnungs- oder Zeiterfassungssystem. Berechtigungen werden serverseitig aus Nextcloud-Konto, Gruppen, Organisationshierarchie und konfigurierten Peer-Freigaben ermittelt.
@@ -53,7 +53,7 @@ Der Rückbauweg ist bewusst einfach und vollständig:
 5. `occ status`, App-Liste und Nextcloud-Log prüfen.
 6. Technische und fachliche Kurzabnahme wiederholen.
 
-Ein einzelnes App-Verzeichnis wird nur dann isoliert zurückgerollt, wenn nachweislich keine Migration und kein app-übergreifender Vertragswechsel stattgefunden hat. `localbase` darf nicht deaktiviert oder entfernt werden, solange eines der vier AD-Fachprodukte aktiv ist. OrgSuite darf nur deaktiviert werden, wenn ihre AD-/BR-Navigation und ihr Adminadapter nicht mehr benötigt werden.
+Ein einzelnes App-Verzeichnis wird nur dann isoliert zurückgerollt, wenn nachweislich keine Migration und kein app-übergreifender Vertragswechsel stattgefunden hat. `localbase` darf nicht deaktiviert oder entfernt werden, solange eines der fünf AD-Fachprodukte aktiv ist. OrgSuite darf nur deaktiviert werden, wenn ihre AD-/BR-Navigation und ihr Adminadapter nicht mehr benötigt werden.
 
 ## Regelmäßige Betriebsprüfung
 
@@ -85,7 +85,7 @@ Beide Befehle müssen bei aktiver App genau einen Eintrag liefern. Der Zeitstemp
 
 Zusätzlich kontrollieren:
 
-- neue Fehler der Logger `orgsuite`, `adcalendar`, `adplaner`, `adurlaub` und `adroom`,
+- neue Fehler der Logger `orgsuite`, `adcalendar`, `adplaner`, `adurlaub`, `adroom` und `adrecruitment`,
 - fehlgeschlagene Cron-/Background-Jobs,
 - Datenbank-, Dateisystem- und Inode-Auslastung,
 - Zertifikatsablauf und Erreichbarkeit der Nextcloud-Instanz,

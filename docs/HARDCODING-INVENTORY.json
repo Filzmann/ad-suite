@@ -45,9 +45,9 @@
         "orgsuite/js/suite-navigation.js"
       ],
       "category": "gemeinsamer Vertrag",
-      "state": "duplicated",
+      "state": "resolved-by-versioned-localbase-catalog",
       "targetOwner": "localbase",
-      "action": "Einen kleinen serverseitigen Produktkatalog für Installation, Reihenfolge, Route und stabile Produktkennung bereitstellen; OrgSuite liefert daraus die sichtbaren Menüdaten aus.",
+      "action": "Umgesetzt über localbase/resources/ad-product-catalog.json, Provider-/Consumer-Verträge und kataloglesende Parent-Skripte.",
       "priority": 1
     },
     {

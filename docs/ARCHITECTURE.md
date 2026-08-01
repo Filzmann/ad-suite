@@ -8,14 +8,22 @@ und Staging-Abnahme ein Arbeitsstand und kein veröffentlichter Release.
 ## Produkte und Infrastruktur
 
 Verkaufbare Fachprodukte sind AD Kalender (`adcalendar`), Assistenzplanung
-(`adplaner`), AD Urlaub (`adurlaub`) und AD Raumplaner (`adroom`). LocalBase
-und OrgSuite sind mitgelieferte Infrastruktur und keine eigenständigen
-Fachprodukte.
+(`adplaner`), AD Urlaub (`adurlaub`), AD Raumplaner (`adroom`) und AD
+Recruitment (`adrecruitment`). LocalBase und OrgSuite sind mitgelieferte
+Infrastruktur und keine eigenständigen Fachprodukte.
 
 Jedes Produktbundle enthält LocalBase, OrgSuite und genau ein Fachprodukt. Bei
 genau einem aktiven Fachprodukt bleibt OrgSuite deaktiviert; ab zwei
 Fachprodukten aktiviert der geprüfte Installer OrgSuite. Das vollständige
-Suite-Bundle enthält alle sechs Apps.
+Suite-Bundle enthält alle sieben Apps. AD Recruitment besitzt zusätzlich ein
+eigenes Produktpaket und wird nicht in die Pakete anderer Fachprodukte gelegt.
+
+Der versionierte Produktkatalog in LocalBase ist die kanonische Quelle für
+stabile Produkt-ID, Produkttyp, Reihenfolge, technische Einstiegsroute,
+Standalone-, Menü- und Bundle-Zugehörigkeit. Sichtbare Labels werden im
+Übersetzungsbereich der jeweiligen App aufgelöst. Navigation erteilt keine
+Rechte und die Aufnahme in den Katalog ersetzt keine serverseitige
+Zielberechtigung.
 
 Fachprodukte bleiben ohne optionale Provider nutzbar. Fehlende Apps führen zu
 einem dokumentierten manuellen oder reduzierten Standalone-Weg und nicht zu
