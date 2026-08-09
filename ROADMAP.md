@@ -4,8 +4,8 @@ Diese Roadmap bündelt app-übergreifende Produkt- und Qualitätsziele. Die Fach
 
 ## Verteilte Aufgabenübersicht
 
-Die beim Hardcoding- und Lokalisierungsaudit freigegebenen Aufgaben werden in
-den tatsächlich zuständigen Repositories gepflegt:
+Die beim Hardcoding-Audit freigegebenen Aufgaben werden in den tatsächlich
+zuständigen Repositories gepflegt:
 
 | Themenblock | Kanonische Aufgaben |
 | --- | --- |
@@ -13,9 +13,16 @@ den tatsächlich zuständigen Repositories gepflegt:
 | BR-Gruppen | `LB-BR-GROUPS`, `BRT-BR-GROUPS`, `BRS-BR-GROUPS` |
 | Kalenderdefaults | `ADC-ADMIN-DEFAULTS` |
 | BR-Stammdaten und Vorlagen | `BRT-DOCUMENT-CONFIG`, `BRS-DOCUMENT-CONFIG` |
-| Locale und Nextcloud-l10n | die jeweilige `*-L10N`-Aufgabe in jedem App-Repository |
 | Technische Dokumentreferenzen | `PARENT-DOC-REFS` |
 | Explizite RC-Bereinigung | `PARENT-RC-CLEANUP` |
+
+## Zukunftsplanung – nicht freigegeben
+
+Der appübergreifende L10n-Rollout ist ausschließlich als spätere
+Zukunftsplanung vorgemerkt. Lokale `*-L10N`-Einträge sind keine freigegebenen
+Umsetzungsaufgaben. Pilot-App, Reihenfolge, unterstützte Locales,
+Fallbackvertrag und Rohtext-Gate benötigen vor jeder Umsetzung eine eigene
+appübergreifende Freigabe.
 
 Die Reihenfolge laufender Kalender-/Urlaubsabnahmen und sonstiger, nicht aus
 den Learning Candidates stammender Arbeit steht weiterhin im zeitlich

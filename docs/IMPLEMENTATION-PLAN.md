@@ -8,6 +8,10 @@ weiterhin einen eigenen Auftrag und eine eigene Abnahme.
 Die dauerhaften Produktziele stehen in `../ROADMAP.md`. Dieser Plan beschreibt
 lediglich die derzeit vorgesehene Reihenfolge.
 
+Der appübergreifende L10n-Rollout ist nicht Teil dieses aktiven
+Ausführungsplans. Er bleibt als nicht freigegebene Zukunftsplanung in der
+Roadmap vorgemerkt; lokale `*-L10N`-Einträge begründen keinen Auftrag.
+
 ## 1. Laufenden Kalender- und Urlaubsstand abschließen
 
 - Begonnene Änderungen an Ansichten, Terminserien, Kalenderkontext,
@@ -43,31 +47,21 @@ lediglich die derzeit vorgesehene Reihenfolge.
 - Organisationssnapshot und Matrix über `LB-AD-ORG-SNAPSHOT`,
   `BPM-AD-ORG-SNAPSHOT` und `BPM-FOLDER-RIGHTS`.
 
-## 6. Datums- und Zeitbeschriftungen lokalisieren
-
-- Pilot und jede Folgemigration über die app-eigene `*-L10N`-Aufgabe.
-- AdPlaner und AD Urlaub bleiben die vorgesehenen Pilotkandidaten.
-
-## 7. Nextcloud-l10n vertikal einführen
-
-- Werkzeug, Fallback, Tests und Rohtext-Check stehen jeweils in der lokalen
-  `*-L10N`-Aufgabe; es gibt keine globale App-übergreifende Textquelle.
-
-## 8. Weitere administrierbare Vorgaben prüfen
+## 6. Weitere administrierbare Vorgaben prüfen
 
 - Kalenderdefaults über `ADC-ADMIN-DEFAULTS`.
 - BR-Stammdaten und Vorlagen über `BRT-DOCUMENT-CONFIG` und
   `BRS-DOCUMENT-CONFIG`.
 - Andere Defaults bleiben erst nach eigener Evidenzprüfung neue Aufgaben.
 
-## 9. Externe Kalenderanbieter
+## 7. Externe Kalenderanbieter
 
 - Google- und Apple-Abnahme wie geplant frühestens Mitte/Ende August 2026
   fortsetzen.
 - OAuth, Secret-Verwaltung, Redirect-URLs und Providerfehler getrennt von
-  Menü- und l10n-Umbauten liefern.
+  Menü-Umbauten liefern.
 
-## 10. Abnahme je Lieferblock
+## 8. Abnahme je Lieferblock
 
 - Jeder Schritt ist ein eigener rückbaubarer Commit-/Releaseblock.
 - Öffentliche LocalBase-Verträge erhalten Provider- und Consumer-Tests sowie
@@ -78,7 +72,6 @@ lediglich die derzeit vorgesehene Reihenfolge.
 ## Offene Entscheidungen
 
 Offene Candidate-Entscheidungen stehen jetzt direkt an den betroffenen
-Aufgaben: BR-Gruppenmitgliedschaft, Umbenennung vorhandener Kalender sowie
-persönliche gegenüber organisationsweiter Dokumentlocale. Die erste
-vollständig unterstützte Sprache neben Deutsch wird im l10n-Pilotauftrag
-festgelegt.
+Aufgaben: BR-Gruppenmitgliedschaft und Umbenennung vorhandener Kalender.
+Dokumentsprache und erste vollständig unterstützte Sprache neben Deutsch
+gehören ausschließlich zur nicht freigegebenen L10n-Zukunftsplanung.
