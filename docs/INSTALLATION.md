@@ -10,26 +10,38 @@ Verkaufbare Fachprodukte sind:
 - `adplaner` – Assistenzplanung,
 - `adurlaub` – AD Urlaub,
 - `adroom` – AD Raumplaner.
+- `adrecruitment` – AD Recruitment.
 
 Jedes Produktbundle enthält zusätzlich eine kompatible Version von `localbase` und `orgsuite`. Diese beiden Apps sind mitgelieferte technische Infrastruktur und keine separaten Fachprodukte. Die Fachapps funktionieren einzeln. Ab zwei aktivierten AD-Fachprodukten bündelt OrgSuite Navigation und Organisationsadministration.
 
 Es gibt zwei Paketarten:
 
 - `ad-product-<app-id>-RELEASE.tar.gz` für die Installation oder Aktualisierung genau eines Fachprodukts,
-- `ad-suite-RELEASE.tar.gz` für eine vollständige Installation aller vier Fachprodukte.
+- `ad-suite-RELEASE.tar.gz` für eine vollständige Installation aller fünf Fachprodukte.
+
+AD Recruitment wird im vollständigen AD-Suite-Archiv und als eigenes
+Produktpaket ausgeliefert. Es wird nicht stillschweigend Bestandteil eines
+anderen Fachproduktpakets. Menü- und Bundle-Zugehörigkeit werden im
+mitgelieferten `ad-product-catalog.json` getrennt ausgewiesen; Navigation
+erteilt keine Rechte.
 
 Für Einzelprodukte ist immer der mitgelieferte Installer zu verwenden. Nextcloud 34 installiert App-Abhängigkeiten aus `info.xml` nicht automatisch; das Produktbundle übernimmt deshalb Reihenfolge, Prüfsummen und Aktivierung der Infrastruktur.
 
 ## Server vorab prüfen
 
-Alle `occ`-Befehle werden im Nextcloud-Root als HTTP-Benutzer ausgeführt, unter Debian/Ubuntu üblicherweise `www-data`.
+Vor jedem Befehl werden Nextcloud-Root, tatsächliches CLI-PHP, erforderliches
+CLI-Memory-Limit und der für Installation beziehungsweise Upgrade vorgesehene
+Runtime-/Domainbenutzer aus der realen Zielkonfiguration ermittelt. Die
+Platzhalter `<NEXTCLOUD-ROOT>`, `<CLI-PHP>` und `<RUNTIME-KONTEXT>` werden
+durch diese geprüften Werte ersetzt; `www-data`, System-`php` oder
+`/var/www/nextcloud` sind keine allgemeinen Vorgaben.
 
 ```bash
-cd /var/www/nextcloud
-sudo -u www-data php occ status
-sudo -u www-data php occ config:system:get dbtype
-sudo -u www-data php occ integrity:check-core
-php -v
+cd <NEXTCLOUD-ROOT>
+<RUNTIME-KONTEXT> <CLI-PHP> occ status
+<RUNTIME-KONTEXT> <CLI-PHP> occ config:system:get dbtype
+<RUNTIME-KONTEXT> <CLI-PHP> occ integrity:check-core
+<CLI-PHP> -v
 ```
 
 Webserver und CLI müssen dieselbe unterstützte PHP-Hauptversion verwenden. Das Verzeichnis `custom_apps/` muss existieren und für den vorgesehenen Deploymentprozess beschreibbar sein.
@@ -48,15 +60,15 @@ Nach ausgeführten App-Migrationen ist ein Downgrade durch bloßes Zurückkopier
 
 ## Einzelprodukt installieren
 
-Produktbundle und äußere Prüfsumme gemeinsam übertragen. Im Beispiel wird `PRODUCT` durch `adcalendar`, `adplaner`, `adurlaub` oder `adroom` und `RELEASE` durch die konkrete Releasebezeichnung ersetzt:
+Produktbundle und äußere Prüfsumme gemeinsam übertragen. Im Beispiel wird `PRODUCT` durch `adcalendar`, `adplaner`, `adurlaub`, `adroom` oder `adrecruitment` und `RELEASE` durch die konkrete Releasebezeichnung ersetzt:
 
 ```bash
 sha256sum --check ad-product-PRODUCT-RELEASE.tar.gz.sha256
 tar -xzf ad-product-PRODUCT-RELEASE.tar.gz
 cd ad-product-PRODUCT-RELEASE
 sha256sum --check SHA256SUMS
-sudo -u www-data ./install.sh \
-  --nextcloud-root /var/www/nextcloud \
+<RUNTIME-KONTEXT> ./install.sh \
+  --nextcloud-root <NEXTCLOUD-ROOT> \
   --bundle-dir "$PWD" \
   --product PRODUCT
 ```
@@ -71,7 +83,15 @@ Der Installer:
 6. führt `occ upgrade` für Aktualisierungen bereits aktiver Apps aus,
 7. deaktiviert bei einem Fehler vor dem Datenbankupgrade neu aktivierte Apps wieder und stellt zuvor vorhandene Appverzeichnisse wieder her.
 
-Der ausführende Webserverbenutzer benötigt Schreibrechte auf `custom_apps/`. Vorhandene Appdaten in der Datenbank werden nicht gelöscht. App-Migrationen laufen beim `occ app:enable` beziehungsweise `occ upgrade`; deshalb bleibt das vollständige Backup auch beim Produktinstaller Pflicht. Scheitert `occ upgrade`, setzt der Installer den Appcode bewusst nicht automatisch zurück, weil bereits ausgeführte Datenbankmigrationen sonst nicht mehr zum alten Code passen könnten. In diesem Fall wird der vollständige Wiederherstellungspunkt eingespielt.
+Der tatsächlich verwendete Deployment-/Runtimekontext benötigt die
+erforderlichen Schreibrechte auf dem vorgesehenen `custom_apps`-Pfad.
+Vorhandene Appdaten in der Datenbank werden nicht gelöscht. App-Migrationen
+laufen beim `occ app:enable` beziehungsweise `occ upgrade`; deshalb bleibt das
+vollständige Backup auch beim Produktinstaller Pflicht. Scheitert
+`occ upgrade`, setzt der Installer den Appcode bewusst nicht automatisch
+zurück, weil bereits ausgeführte Datenbankmigrationen sonst nicht mehr zum
+alten Code passen könnten. In diesem Fall wird der vollständige
+Wiederherstellungspunkt eingespielt.
 
 OrgSuite wird nicht automatisch deaktiviert, wenn später ein Produkt manuell deaktiviert wird. So werden vorhandene BR-Navigation und bewusst konfigurierte Suite-Nutzung nicht überraschend verändert.
 
@@ -84,47 +104,54 @@ sha256sum --check ad-suite-RELEASE.tar.gz.sha256
 tar -xzf ad-suite-RELEASE.tar.gz
 cd ad-suite-RELEASE
 sha256sum --check SHA256SUMS
-sudo -u www-data ./install.sh \
-  --nextcloud-root /var/www/nextcloud \
+<RUNTIME-KONTEXT> ./install.sh \
+  --nextcloud-root <NEXTCLOUD-ROOT> \
   --bundle-dir "$PWD" \
   --product suite
 ```
 
 `manifest.tsv` dokumentiert pro App Version, Git-Commit, SHA-256 und Signaturstatus.
 
-Der Suite-Installer nutzt dieselben Prüfungen, Backups und Rückbaugrenzen wie der Einzelproduktinstaller. Er installiert alle vier Fachprodukte, LocalBase und OrgSuite in der erforderlichen Reihenfolge und aktiviert anschließend die vollständige Suite. Die folgenden manuellen Schritte dienen nur als dokumentierter Ausweichweg, falls der Installer vor Beginn der Aktivierung nicht ausgeführt werden kann.
+Der Suite-Installer nutzt dieselben Prüfungen, Backups und Rückbaugrenzen wie der Einzelproduktinstaller. Er installiert alle fünf Fachprodukte, LocalBase und OrgSuite in der erforderlichen Reihenfolge und aktiviert anschließend die vollständige Suite. Die folgenden manuellen Schritte dienen nur als dokumentierter Ausweichweg, falls der Installer vor Beginn der Aktivierung nicht ausgeführt werden kann.
 
 ### Manueller Ausweichweg: Apps entpacken
 
 ```bash
-sudo tar -xzf localbase-*.tar.gz -C /var/www/nextcloud/custom_apps/
-sudo tar -xzf orgsuite-*.tar.gz -C /var/www/nextcloud/custom_apps/
-sudo tar -xzf adcalendar-*.tar.gz -C /var/www/nextcloud/custom_apps/
-sudo tar -xzf adplaner-*.tar.gz -C /var/www/nextcloud/custom_apps/
-sudo tar -xzf adurlaub-*.tar.gz -C /var/www/nextcloud/custom_apps/
-sudo tar -xzf adroom-*.tar.gz -C /var/www/nextcloud/custom_apps/
-sudo chown -R www-data:www-data /var/www/nextcloud/custom_apps/{localbase,orgsuite,adcalendar,adplaner,adurlaub,adroom}
+<DEPLOY-KONTEXT> tar -xzf localbase-*.tar.gz -C <CUSTOM-APPS>/
+<DEPLOY-KONTEXT> tar -xzf orgsuite-*.tar.gz -C <CUSTOM-APPS>/
+<DEPLOY-KONTEXT> tar -xzf adcalendar-*.tar.gz -C <CUSTOM-APPS>/
+<DEPLOY-KONTEXT> tar -xzf adplaner-*.tar.gz -C <CUSTOM-APPS>/
+<DEPLOY-KONTEXT> tar -xzf adurlaub-*.tar.gz -C <CUSTOM-APPS>/
+<DEPLOY-KONTEXT> tar -xzf adroom-*.tar.gz -C <CUSTOM-APPS>/
+<DEPLOY-KONTEXT> tar -xzf adrecruitment-*.tar.gz -C <CUSTOM-APPS>/
 ```
 
 Jedes Archiv enthält genau den zur App-ID passenden Wurzelordner. Keine Ordner umbenennen.
+Eigentümer, Gruppe und Modi werden danach mit der kleinsten zur realen
+Runtime-/Static-Webserver-Konfiguration passenden Änderung gesetzt; keine
+pauschale rekursive Beispielberechtigung übernehmen.
 
 ### Manueller Ausweichweg: Apps aktivieren
 
 Auf einem leeren Staging-System können die Apps direkt in Abhängigkeitsreihenfolge aktiviert werden. Auf einer bereits benutzten Instanz empfiehlt sich für den Installationszeitraum der Wartungsmodus.
 
 ```bash
-cd /var/www/nextcloud
-sudo -u www-data php occ app:enable localbase
-sudo -u www-data php occ app:enable orgsuite
-sudo -u www-data php occ app:enable adcalendar
-sudo -u www-data php occ app:enable adplaner
-sudo -u www-data php occ app:enable adurlaub
-sudo -u www-data php occ app:enable adroom
-sudo -u www-data php occ status
-sudo -u www-data php occ app:list --enabled
+cd <NEXTCLOUD-ROOT>
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:enable localbase
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:enable orgsuite
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:enable adcalendar
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:enable adplaner
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:enable adurlaub
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:enable adroom
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:enable adrecruitment
+<RUNTIME-KONTEXT> <CLI-PHP> occ status
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:list --enabled
 ```
 
-`--force` darf nicht verwendet werden. Beim Aktivieren führt Nextcloud die noch ausstehenden App-Migrationen aus. Meldet `occ status` danach `needsDbUpgrade: true`, wird im Wartungsfenster `sudo -u www-data php occ upgrade` ausgeführt.
+`--force` darf nicht verwendet werden. Beim Aktivieren führt Nextcloud die
+noch ausstehenden App-Migrationen aus. Meldet `occ status` danach
+`needsDbUpgrade: true`, wird im Wartungsfenster
+`<RUNTIME-KONTEXT> <CLI-PHP> occ upgrade` ausgeführt.
 
 ## Signaturen
 
@@ -146,7 +173,7 @@ Die ausschließlich appbezogenen Raumstammdaten bleiben unabhängig davon im eig
 
 Bei Univention-/LDAP-Betrieb ist zusätzlich der [LDAP- und Univention-Betriebsvertrag](LDAP-UNIVENTION.md) abzuarbeiten. Insbesondere müssen interne Nextcloud-Benutzer-IDs stabil bleiben und alle konfigurierten Gruppen-IDs in Nextcloud sichtbar sein.
 
-Fehlende Fachapps sind ein unterstützter Standalone-Zustand: Ohne AD Urlaub bleiben manuelle Sperrtermine im Kalender möglich; ohne AD Kalender bleibt Urlaubsplanung möglich, jedoch ohne automatische Dienstkonfliktprüfung; Raumbuchungen und Assistenzplanung bleiben ohne die jeweils anderen Produkte manuell nutzbar.
+Fehlende Fachapps sind ein unterstützter Standalone-Zustand: Ohne AD Urlaub bleiben manuelle Sperrtermine im Kalender möglich; ohne AD Kalender bleibt Urlaubsplanung möglich, jedoch ohne automatische Dienstkonfliktprüfung; Raumbuchungen, Assistenzplanung und AD Recruitment bleiben ohne die jeweils anderen Produkte eigenständig nutzbar.
 
 Demo-Packs werden nie automatisch ausgeführt und importieren keine WordPress-Bestandsdaten. Sie dürfen ausschließlich nach bewusster Bestätigung im Adminbereich der jeweiligen Fachapp installiert werden. Auf einem realitätsnahen LDAP-Staging müssen dafür synthetische Konten und schreibbare Demogruppen verwendet werden; read-only LDAP-Gruppen werden nicht verändert.
 

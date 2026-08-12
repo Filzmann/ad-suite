@@ -9,7 +9,7 @@ Vor dem ersten Import realer Personaldaten müssen benannt sein:
 - technische Administration für Nextcloud, Datenbank, Backup und Wiederherstellung,
 - fachliche Verantwortung für Organisationshierarchie, Gruppen und Freigaben,
 - Ansprechperson für Datenschutz und betriebliche Mitbestimmung,
-- Freigabeverantwortliche für Kalender, Assistenzplanung, Urlaub und Räume,
+- Freigabeverantwortliche für Kalender, Assistenzplanung, Urlaub, Räume und Recruitment,
 - Meldeweg und Reaktionszeit bei Störungen.
 
 Die Suite ist eine Planungsanwendung, kein revisionssicheres Personalabrechnungs- oder Zeiterfassungssystem. Berechtigungen werden serverseitig aus Nextcloud-Konto, Gruppen, Organisationshierarchie und konfigurierten Peer-Freigaben ermittelt.
@@ -53,22 +53,39 @@ Der Rückbauweg ist bewusst einfach und vollständig:
 5. `occ status`, App-Liste und Nextcloud-Log prüfen.
 6. Technische und fachliche Kurzabnahme wiederholen.
 
-Ein einzelnes App-Verzeichnis wird nur dann isoliert zurückgerollt, wenn nachweislich keine Migration und kein app-übergreifender Vertragswechsel stattgefunden hat. `localbase` darf nicht deaktiviert oder entfernt werden, solange eines der vier AD-Fachprodukte aktiv ist. OrgSuite darf nur deaktiviert werden, wenn ihre AD-/BR-Navigation und ihr Adminadapter nicht mehr benötigt werden.
+Ein einzelnes App-Verzeichnis wird nur dann isoliert zurückgerollt, wenn nachweislich keine Migration und kein app-übergreifender Vertragswechsel stattgefunden hat. `localbase` darf nicht deaktiviert oder entfernt werden, solange eines der fünf AD-Fachprodukte aktiv ist. OrgSuite darf nur deaktiviert werden, wenn ihre AD-/BR-Navigation und ihr Adminadapter nicht mehr benötigt werden.
 
 ## Regelmäßige Betriebsprüfung
 
 Mindestens nach Deployments und ansonsten nach betrieblichem Standard prüfen:
 
 ```bash
-sudo -u www-data php occ status
-sudo -u www-data php occ app:list --enabled
-sudo -u www-data php occ background:cron
-sudo -u www-data php occ config:system:get loglevel
+<RUNTIME-KONTEXT> <CLI-PHP> occ status
+<RUNTIME-KONTEXT> <CLI-PHP> occ app:list --enabled
+<RUNTIME-KONTEXT> <CLI-PHP> occ background:cron
+<RUNTIME-KONTEXT> <CLI-PHP> occ config:system:get loglevel
 ```
+
+Bei installiertem AD Kalender beziehungsweise LocalBase werden nach einem
+Update zusätzlich die beiden periodischen Jobs gezielt geprüft. Die
+Klassenfilter vermeiden, dass sie bei großen Instanzen außerhalb des
+Standardlimits von `background-job:list` liegen:
+
+```bash
+<RUNTIME-KONTEXT> <CLI-PHP> occ background-job:list \
+  --class='OCA\AdCalendar\BackgroundJob\ReconcileShiftCalendarsJob' \
+  --output=json_pretty
+
+<RUNTIME-KONTEXT> <CLI-PHP> occ background-job:list \
+  --class='OCA\LocalBase\BackgroundJob\RefreshHolidayCalendarJob' \
+  --output=json_pretty
+```
+
+Beide Befehle müssen bei aktiver App genau einen Eintrag liefern. Der Zeitstempel `1970-01-01` bedeutet unmittelbar nach der Registrierung lediglich, dass der Job noch nicht erstmals durch Cron gelaufen ist.
 
 Zusätzlich kontrollieren:
 
-- neue Fehler der Logger `orgsuite`, `adcalendar`, `adplaner`, `adurlaub` und `adroom`,
+- neue Fehler der Logger `orgsuite`, `adcalendar`, `adplaner`, `adurlaub`, `adroom` und `adrecruitment`,
 - fehlgeschlagene Cron-/Background-Jobs,
 - Datenbank-, Dateisystem- und Inode-Auslastung,
 - Zertifikatsablauf und Erreichbarkeit der Nextcloud-Instanz,

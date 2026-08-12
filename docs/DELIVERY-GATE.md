@@ -7,7 +7,7 @@ Das Delivery-Gate bündelt die wiederholbaren Prüfungen vor jedem Releasekandid
 ## Stufe 1: lokale Pflichtprüfung
 
 ```bash
-cd ~/projects/br-nextcloud-apps
+cd <WORKSPACE_ROOT>
 scripts/check-ad-suite-delivery
 ```
 
@@ -20,9 +20,9 @@ Geprüft werden:
 - Symlinks und Shell-Syntax,
 - alle schnellen PHP- und JavaScript-Tests,
 - reproduzierbarer Paketbau, Archivwurzeln und SHA-256-Prüfsummen,
-- vier Produktbundles mit Installer sowie das vollständige Suite-Bundle.
+- fünf Produktbundles mit Installer sowie das vollständige Suite-Bundle.
 
-Der Installer-Contract wird mit einer künstlichen Nextcloud-/`occ`-Umgebung geprüft: Das erste Fachprodukt aktiviert LocalBase und bleibt ohne OrgSuite, jede der sechs möglichen Produktpaarungen aktiviert OrgSuite, der vollständige Suite-Installer aktiviert alle Apps, und manipulierte Prüfsummen werden abgewiesen.
+Der Installer-Contract wird mit einer künstlichen Nextcloud-/`occ`-Umgebung geprüft: Das erste Fachprodukt aktiviert LocalBase und bleibt ohne OrgSuite, jede der zehn möglichen Produktpaarungen aktiviert OrgSuite, der vollständige Suite-Installer aktiviert alle Apps, und manipulierte Prüfsummen werden abgewiesen.
 
 ## Stufe 2: Nextcloud-Container
 
@@ -30,7 +30,7 @@ Der Installer-Contract wird mit einer künstlichen Nextcloud-/`occ`-Umgebung gep
 RUN_DDEV_CHECKS=1 scripts/check-ad-suite-delivery
 ```
 
-Diese Stufe ergänzt den Nextcloud-Status und prüft, ob alle sechs Apps aktiviert sind.
+Diese Stufe ergänzt den Nextcloud-Status und prüft, ob alle sieben Apps aktiviert sind.
 
 DDEV ist keine Vorlage für Produktion. DDEV-Pfade, Benutzer, Containerpfade, PHP-Binaries, Datenbankzugänge und andere lokale Annahmen dürfen nicht auf die Zielumgebung übertragen werden. Für Staging oder Produktion werden reale Pfade, Benutzer, `apps_paths`, PHP-Binary und CLI-Memory-Limit separat ermittelt und der Umgebungswechsel ausdrücklich benannt.
 
@@ -39,7 +39,7 @@ DDEV ist keine Vorlage für Produktion. DDEV-Pfade, Benutzer, Containerpfade, PH
 Die isolierten PHP-Tests können zusätzlich mit Xdebug/PHPCOV gemessen werden. Die Entwicklungsabhängigkeit wird aus dem versionierten Lockfile installiert und nicht in die App-Archive gepackt:
 
 ```bash
-cd ~/projects/br-nextcloud-apps/nextcloud-dev
+cd <WORKSPACE_ROOT>/nextcloud-dev
 ddev xdebug on
 cd ..
 scripts/measure-ad-suite-php-coverage.sh
@@ -57,17 +57,11 @@ Neue Fachlogik, Fehlerkorrekturen, Berechtigungen, Validierungen und Konfliktreg
 
 Technische Spikes und reine UI-Erkundungen dürfen vorübergehend ohne vorgelagerten Test entstehen. Vor der Übernahme in Produktivcode werden sie verworfen oder durch passende Unit-, Contract-, Integrations-, Layout- oder Browsertests abgesichert. PHP- und JavaScript-Coverage werden nicht zu einer gemeinsamen Kennzahl vermischt.
 
-Baseline vom 15. Juli 2026 nach der Standalone-Produktarchitektur und ihren Bootstrap-Vertragstests:
-
-| App | ausführbare Zeilen | abgedeckt | Line-Coverage |
-| --- | ---: | ---: | ---: |
-| LocalBase | 415 | 389 | 93,73 % |
-| OrgSuite | 47 | 47 | 100,00 % |
-| AD Kalender | 824 | 279 | 33,86 % |
-| AD Planer | 772 | 343 | 44,43 % |
-| AD Urlaub | 542 | 159 | 29,34 % |
-| AD Raum | 427 | 183 | 42,86 % |
-| Gesamt | 3.027 | 1.400 | 46,25 % |
+Die aktuell verbindlichen PHP- und JavaScript-Baselines werden ausschließlich
+in `scripts/ad-suite-php-coverage-baseline.tsv` und
+`scripts/ad-suite-js-coverage-baseline.tsv` geführt. Beide enthalten AD
+Recruitment als eigenes Fachprodukt; diese Dokumentation dupliziert die
+veränderlichen Messwerte nicht.
 
 JavaScript ist über Syntax-, Komponenten-, Contract- und Fake-DOM-Smokes abgesichert. Dafür wird noch keine Prozentzahl ausgewiesen: Ein V8-Wert wäre bei den teilweise statischen DOM-/Quellverträgen keine belastbare Aussage über tatsächlich ausgeführte Browserlogik. Browsernahe JS-Line-Coverage bleibt ein eigener Ausbaupunkt und wird nicht mit der PHP-Zahl vermischt.
 

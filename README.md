@@ -1,6 +1,8 @@
 # AD Suite für Nextcloud
 
-Die AD Suite bündelt sechs eigenständige Nextcloud-Apps für Dienst-, Assistenz-, Urlaubs- und Raumplanung unter einer gemeinsamen Navigation und Organisationskonfiguration.
+Die AD Suite bündelt sieben eigenständige Nextcloud-Apps für Dienst-,
+Assistenz-, Urlaubs-, Raum- und Bewerbungsprozesse unter einer gemeinsamen
+Navigation und Organisationskonfiguration.
 
 > Status: Release Candidate für ein kontrolliertes Staging auf Nextcloud 34 mit PHP ab 8.3. Vor einem produktiven Einsatz sind Neuinstallationstest, Datenschutz- und Mitbestimmungsprüfung, Sicherheitsreview und fachliche Abnahme erforderlich.
 
@@ -14,20 +16,35 @@ Die AD Suite bündelt sechs eigenständige Nextcloud-Apps für Dienst-, Assisten
 | Assistenzplanung | Monatliche Wunschdienstplanung für dynamische Assistenzteams | [nextcloud-adplaner](https://github.com/Filzmann/nextcloud-adplaner) |
 | AD Urlaub | Geplante und genehmigte Urlaube mit Rechte- und Konfliktprüfung | [nextcloud-adurlaub](https://github.com/Filzmann/nextcloud-adurlaub) |
 | AD Raumplaner | Zeitlich ausgerichtete, kollisionsfreie Raumbuchungen | [nextcloud-adroom](https://github.com/Filzmann/nextcloud-adroom) |
+| AD Recruitment (`adrecruitment`) | Stellen, Personen, Bewerbungen und versionierte Interviews | [nextcloud-recruitment](https://github.com/Filzmann/nextcloud-recruitment) |
 
-Die vier Fachapps sind einzeln verkauf-, installier- und nutzbar. Jedes Produktbundle bringt die kompatible LocalBase-Infrastruktur mit; ab zwei Fachprodukten wird OrgSuite für gemeinsame Navigation und Administration aktiviert. Fehlende Integrationspartner werden nicht als Fehler behandelt: Die jeweilige Direktfunktion entfällt oder bleibt als manueller Fachweg verfügbar.
+Die fünf Fachapps sind einzeln verkauf-, installier- und nutzbar. Jedes
+Produktbundle bringt LocalBase und OrgSuite als kompatible Infrastruktur mit;
+ab zwei Fachprodukten wird OrgSuite für gemeinsame Navigation und
+Administration aktiviert. Fehlende Integrationspartner werden nicht als
+Fehler behandelt: Die jeweilige Direktfunktion entfällt oder bleibt als
+manueller Fachweg verfügbar.
+
+Der versionierte LocalBase-Produktkatalog trennt Menüzugehörigkeit,
+Standalone-Fähigkeit und Bundle-Zugehörigkeit. AD Recruitment gehört zum
+gemeinsamen AD-Menü, zum vollständigen AD-Suite-Archiv und erhält ein eigenes
+Produktpaket. Es wird nicht in Produktpakete anderer Fachapps aufgenommen.
 
 Navigation erteilt keine Rechte; schreibende und lesende Zugriffskontrollen werden serverseitig in den jeweiligen Apps durchgesetzt. LocalBase und OrgSuite sind mitgelieferte Infrastruktur, keine separat vermarkteten Fachprodukte.
 
 ## Installation und Abnahme
 
+- [Suiteweite Roadmap](ROADMAP.md)
+- [Produktarchitektur](docs/ARCHITECTURE.md)
+- [Aktiver Ausführungsplan](docs/IMPLEMENTATION-PLAN.md)
+- [Maschinenlesbares Hardcoding-Inventar](docs/HARDCODING-INVENTORY.json)
 - [Staging-Installation](docs/INSTALLATION.md)
 - [LDAP- und Univention-Betriebsvertrag](docs/LDAP-UNIVENTION.md)
 - [Betrieb und Rückbau](docs/OPERATIONS.md)
 - [Abnahmeprotokoll](docs/ACCEPTANCE.md)
 - [Delivery-Gate und Testabdeckung](docs/DELIVERY-GATE.md)
 
-Die vier Produktbundles `ad-product-<app-id>-<release>.tar.gz`, das vollständige Suite-Bundle, Versionsmanifeste und SHA-256-Prüfsummen werden gemeinsam im jeweiligen GitHub-Release bereitgestellt. Produktinstallationen verwenden das enthaltene `install.sh` und nicht einzelne rohe Fachapp-Archive.
+Die fünf Produktbundles `ad-product-<app-id>-<release>.tar.gz`, das vollständige Suite-Bundle, Versionsmanifeste und SHA-256-Prüfsummen werden gemeinsam im jeweiligen GitHub-Release bereitgestellt. Produktinstallationen verwenden das enthaltene `install.sh` und nicht einzelne rohe Fachapp-Archive.
 
 ## Lizenz und Leistungen
 

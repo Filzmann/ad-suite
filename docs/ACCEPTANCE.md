@@ -17,8 +17,11 @@
 ## Technische Pflichtprüfungen
 
 - [ ] Äußere Bundle-Prüfsumme und alle Einträge in `SHA256SUMS` stimmen.
-- [ ] Sechs App-Archive entsprechen `manifest.tsv` und wurden in dokumentierter Reihenfolge aktiviert.
+- [ ] Sieben App-Archive entsprechen `manifest.tsv` und wurden in dokumentierter Reihenfolge aktiviert.
 - [ ] `occ status` meldet keinen ausstehenden Datenbank-Upgradebedarf.
+- [ ] Bei aktivem AD Kalender und LocalBase liefern die dokumentierten
+  Klassenfilter für Kalenderabgleich und gemeinsamen Ferien-/Feiertagsabruf
+  jeweils genau einen registrierten Hintergrundjob.
 - [ ] Delivery-Gate einschließlich DDEV-/Zielserverstatus ist erfolgreich.
 - [ ] Authentifizierte HTTP-Smokes sind erfolgreich.
 - [ ] Rechtematrizen sind nach Änderungen an Gruppen, Hierarchie oder Rechten erfolgreich.
@@ -27,7 +30,7 @@
 
 ## Fachliche Pflichtprüfungen
 
-- [ ] Suite-Quermenü bleibt in Kalender, Assistenzplanung, Urlaub und Räumen erreichbar.
+- [ ] Suite-Quermenü bleibt in Kalender, Assistenzplanung, Urlaub, Räumen und AD Recruitment erreichbar.
 - [ ] Normale Konten sehen ausschließlich eigene, gemeinsame oder organisatorisch unterstellte Personen.
 - [ ] Direkte API-Aufrufe auf nicht erlaubte Personen oder Adminfunktionen werden abgewiesen.
 - [ ] Eigene Dienste und Termine können bearbeitet werden; Peerrechte bleiben auf freigegebene Gruppen und Bürobereiche begrenzt.
@@ -36,6 +39,7 @@
 - [ ] Genehmigter Urlaub blockiert; geplanter Urlaub warnt; Überlappungen derselben Person werden verhindert.
 - [ ] Assistenzteams und Organisationsteams sind getrennt auswählbar und gemäß Hierarchie sichtbar.
 - [ ] Raumbuchungen benötigen Titel und Zweck; Überschneidungen sowie ungültige Zeitraster werden verhindert.
+- [ ] Stellen, Personen und Bewerbungen bleiben getrennt; kontrollierte Statuswechsel und abgeschlossene Interviews sind nachvollziehbar und unveränderlich.
 - [ ] Organisationsweite Einstellungen sind nur im Nextcloud-Adminbereich sichtbar; App-Einstellungen betreffen nur das aktuelle Konto.
 - [ ] Vertikales App-Scrolling, horizontaler Tabellenoverflow, Tastaturfokus und Dialogbedienung funktionieren.
 
